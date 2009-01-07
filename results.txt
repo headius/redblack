@@ -1,0 +1,68 @@
+# All ruby implementations are built from source
+
+$ ruby1.9.1 --version
+ruby 1.9.1 (2008-12-30 patchlevel-0 revision 21201) [x86_64-linux]
+
+$ ruby1.9.1 bm_red_black_tree.rb 
+5.071532567
+4.963749446
+4.981047251
+5.042618001
+5.006970055
+
+$ ruby1.8.6 --version
+ruby 1.8.6 (2008-08-11 patchlevel 287) [x86_64-linux]
+
+$ ruby1.8.6 bm_red_black_tree.rb 
+13.712278
+14.028059
+14.490492
+14.509046
+14.764908
+
+$ ~/opt/src/jruby.git/bin/jruby --version
+jruby 1.1.7 (ruby 1.8.6 patchlevel 114) (2009-01-07 rev 8625) [i386-java]
+
+$ ~/opt/src/jruby.git/bin/jruby --server bm_red_black_tree.rb 20
+6.645098
+3.797758
+3.766891
+3.719483
+3.577295
+3.745805
+3.57153
+3.694371
+3.6012
+3.741419
+3.589798
+3.702163
+3.552471
+3.721421
+3.533167
+3.796025
+3.593107
+3.717903
+3.566957
+3.544956
+
+$ ~/opt/src/jruby.git/bin/jruby --server --fast bm_red_black_tree.rb 20
+6.872134
+3.25086
+3.309561
+2.375511
+2.599737
+2.418843
+2.478003
+2.41004
+2.5734
+2.381457
+2.592664
+2.383049
+2.50087
+2.422402
+2.487933
+2.383583
+2.505607
+2.389327
+2.37589
+2.496707
