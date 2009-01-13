@@ -69,6 +69,10 @@ class RedBlackTree
     self.size = 0
   end
 
+  def add(key)
+    insert(Node.new(key))
+  end
+
   def insert(x)
     insert_helper(x)
 
@@ -176,20 +180,20 @@ class RedBlackTree
     return y
   end
 
-  def inorder_walk(x = root, &block)
+  def inorder_walk(x = root)
     x = self.minimum
     while !x.nil?
-      yield x
+      yield x.key
       x = successor(x)
     end
   end
 
   alias each inorder_walk
 
-  def reverse_inorder_walk(x = root, &block)
+  def reverse_inorder_walk(x = root)
     x = self.maximum
     while !x.nil?
-      yield x
+      yield x.key
       x = predecessor(x)
     end
   end
