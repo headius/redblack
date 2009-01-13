@@ -299,7 +299,7 @@ if __name__ == "__main__":
   tree.add(20)
   tree.add(15)
 
-  print tree
+  print(tree)
 
   for key in tree.inorder_walk():
-    print "key = %s" % key
+    print("key = %s" % key)

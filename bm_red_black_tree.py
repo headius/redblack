@@ -2,6 +2,11 @@ import sys
 import time
 import random
 from red_black_tree import RedBlackTree
+import sys
+
+minor = sys.version_info[0]
+if minor >= 3:
+  xrange = range
 
 def rbt_bm():
   start = time.time()
@@ -36,4 +41,4 @@ else:
   n = 5
 
 for i in xrange(0, n):
-  print "%02f" % rbt_bm()
+  print("%02f" % rbt_bm())
