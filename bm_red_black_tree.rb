@@ -3,7 +3,9 @@ $:.unshift(File.expand_path(File.dirname(__FILE__) + "/../../lib"))
 require 'red_black_tree'
 
 def rbt_bm
-
+  n = 100000
+  a1 = []; n.times { a1 << rand(999_999) }
+  a2 = []; n.times { a2 << rand(999_999) }
   start = Time.now
 
   n = 100_000
@@ -14,12 +16,9 @@ def rbt_bm
   n.times { tree.delete(tree.root) }
 
   tree = RedBlackTree.new
-  #n.times { tree.insert(RedBlackTree::Node.new(rand(100_000))) }
-  n.times { tree.add(rand(100_000)) }
-  n.times { tree.search(rand(100_000)) }
-  #tree.each {|node| node.key + 1 }
+  a1.each {|e| tree.add(e) }
+  a2.each {|e| tree.search(e) }
   tree.inorder_walk {|key| key + 1 }
-  #tree.reverse_each {|node| node.key + 1 }
   tree.reverse_inorder_walk {|key| key + 1 }
   n.times { tree.minimum }
   n.times { tree.maximum }

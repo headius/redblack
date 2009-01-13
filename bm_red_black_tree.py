@@ -3,14 +3,18 @@ import time
 import random
 from red_black_tree import RedBlackTree
 import sys
+import cProfile
 
 minor = sys.version_info[0]
 if minor >= 3:
   xrange = range
 
 def rbt_bm():
-  start = time.time()
   n = 100000
+  a1 = [random.randint(0, 999999) for x in xrange(0, n)]
+  a2 = [random.randint(0, 999999) for x in xrange(0, n)]
+
+  start = time.time()
 
   tree = RedBlackTree()
 
@@ -20,10 +24,10 @@ def rbt_bm():
     tree.delete(tree.root)
 
   tree = RedBlackTree()
-  for i in xrange(0, n):
-    tree.add(random.randint(0, 999999))
-  for i in xrange(0, n):
-    tree.search(random.randint(0, 999999))
+  for x in a1:
+    tree.add(x)
+  for x in a2:
+    tree.search(x)
   for key in tree.inorder_walk():
     key + 1
   for key in tree.reverse_inorder_walk():
@@ -42,3 +46,5 @@ else:
 
 for i in xrange(0, n):
   print("%02f" % rbt_bm())
+
+rbt_bm()
