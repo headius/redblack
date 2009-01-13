@@ -1,10 +1,11 @@
+RED = 1
+BLACK = 2
+COLORS = [RED, BLACK]
+
 class Node:
-  RED = 1
-  BLACK = 2
-  COLORS = [RED, BLACK]
 
   def __init__(self, key, color = RED):
-    if not color in self.COLORS:
+    if not color in COLORS:
       raise TypeError("Bad value for color parameter (%s)" % color)
     self.color = color
     self.key = key
@@ -20,10 +21,10 @@ class Node:
     #return "<Node @key=%s, @color=%s, @left=%s, @right=%s>" % (self.key, self.color, self.left, self.right)
 
   def is_red(self):
-    return self.color == self.RED
+    return self.color == RED
 
   def is_black(self):
-    return self.color == self.BLACK
+    return self.color == BLACK
 
   def is_nil(self):
     return False
@@ -39,7 +40,7 @@ class NilNode(Node):
     return self.__instance__
 
   def __init__(self):
-    self.color = Node.BLACK
+    self.color = BLACK
     self.key = None
     self.left = self.right = self.parent = None
   
@@ -63,37 +64,37 @@ class RedBlackTree:
   def insert(self, x):
     self.__insert_helper(x)
 
-    x.color = Node.RED
-    while x != self.root and x.parent.color == Node.RED:
+    x.color = RED
+    while x != self.root and x.parent.color == RED:
       if x.parent == x.parent.parent.left:
         y = x.parent.parent.right
-        if not y.is_nil() and y.color == Node.RED:
-          x.parent.color = Node.BLACK
-          y.color = Node.BLACK
-          x.parent.parent.color = Node.RED
+        if not y.is_nil() and y.color == RED:
+          x.parent.color = BLACK
+          y.color = BLACK
+          x.parent.parent.color = RED
           x = x.parent.parent
         else:
           if x == x.parent.right:
             x = x.parent
             self.__left_rotate(x)
-          x.parent.color = Node.BLACK
-          x.parent.parent.color = Node.RED
+          x.parent.color = BLACK
+          x.parent.parent.color = RED
           self.__right_rotate(x.parent.parent)
       else:
         y = x.parent.parent.left
-        if not y.is_nil() and y.color == Node.RED:
-          x.parent.color = Node.BLACK
-          y.color = Node.BLACK
-          x.parent.parent.color = Node.RED
+        if not y.is_nil() and y.color == RED:
+          x.parent.color = BLACK
+          y.color = BLACK
+          x.parent.parent.color = RED
           x = x.parent.parent
         else:
           if x == x.parent.left:
             x = x.parent
             self.__right_rotate(x)
-          x.parent.color = Node.BLACK
-          x.parent.parent.color = Node.RED
+          x.parent.color = BLACK
+          x.parent.parent.color = RED
           self.__left_rotate(x.parent.parent)
-    self.root.color = Node.BLACK
+    self.root.color = BLACK
 
   def delete(self, z):
     if z.left.is_nil() or z.right.is_nil():
@@ -116,7 +117,7 @@ class RedBlackTree:
 
     if y != z: z.key = y.key
 
-    if y.color == Node.BLACK:
+    if y.color == BLACK:
       self.__delete_fixup(x)
 
     self.size -= 1
@@ -243,50 +244,50 @@ class RedBlackTree:
     self.size += 1
 
   def __delete_fixup(self, x):
-    while x != self.root and x.color == Node.BLACK:
+    while x != self.root and x.color == BLACK:
       if x == x.parent.left:
         w = x.parent.right
-        if w.color == Node.RED:
-          w.color = Node.BLACK
-          x.parent.color = Node.RED
+        if w.color == RED:
+          w.color = BLACK
+          x.parent.color = RED
           self.__left_rotate(x.parent)
           w = x.parent.right
-        if w.left.color == Node.BLACK and w.right.color == Node.BLACK:
-          w.color = Node.RED
+        if w.left.color == BLACK and w.right.color == BLACK:
+          w.color = RED
           x = x.parent
         else:
-          if w.right.color == Node.BLACK:
-            w.left.color = Node.BLACK
-            w.color = Node.RED
+          if w.right.color == BLACK:
+            w.left.color = BLACK
+            w.color = RED
             self.__right_rotate(w)
             w = x.parent.right
           w.color = x.parent.color
-          x.parent.color = Node.BLACK
-          w.right.color = Node.BLACK
+          x.parent.color = BLACK
+          w.right.color = BLACK
           self.__left_rotate(x.parent)
           x = self.root
       else:
         w = x.parent.left
-        if w.color == Node.RED:
-          w.color = Node.BLACK
-          x.parent.color = Node.RED
+        if w.color == RED:
+          w.color = BLACK
+          x.parent.color = RED
           self.__right_rotate(x.parent)
           w = x.parent.left
-        if w.right.color == Node.BLACK and w.left.color == Node.BLACK:
-          w.color = Node.RED
+        if w.right.color == BLACK and w.left.color == BLACK:
+          w.color = RED
           x = x.parent
         else:
-          if w.left.color == Node.BLACK:
-            w.right.color = Node.BLACK
-            w.color = Node.RED
+          if w.left.color == BLACK:
+            w.right.color = BLACK
+            w.color = RED
             self.__left_rotate(w)
             w = x.parent.left
           w.color = x.parent.color
-          x.parent.color = Node.BLACK
-          w.left.color = Node.BLACK
+          x.parent.color = BLACK
+          w.left.color = BLACK
           self.__right_rotate(x.parent)
           x = root
-    x.color = Node.BLACK
+    x.color = BLACK
     
   
 
