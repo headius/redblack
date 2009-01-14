@@ -10,6 +10,7 @@ class Node:
     self.color = color
     self.key = key
     self.left = self.right = self.parent = NilNode.instance()
+    self.is_nil = False
 
   def __str__(self, level = 0, indent = "   "):
     s = level * indent + str(self.key)
@@ -26,9 +27,6 @@ class Node:
   def is_black(self):
     return self.color == BLACK
 
-  def is_nil(self):
-    return False
-
 
 class NilNode(Node):
   __instance__ = None
@@ -43,9 +41,7 @@ class NilNode(Node):
     self.color = BLACK
     self.key = None
     self.left = self.right = self.parent = None
-  
-  def is_nil(self):
-    return True
+    self.is_nil = True
 
 class RedBlackTree:
   def __init__(self):
@@ -68,7 +64,7 @@ class RedBlackTree:
     while x != self.root and x.parent.color == RED:
       if x.parent == x.parent.parent.left:
         y = x.parent.parent.right
-        if not y.is_nil() and y.color == RED:
+        if not y.is_nil and y.color == RED:
           x.parent.color = BLACK
           y.color = BLACK
           x.parent.parent.color = RED
@@ -82,7 +78,7 @@ class RedBlackTree:
           self.__right_rotate(x.parent.parent)
       else:
         y = x.parent.parent.left
-        if not y.is_nil() and y.color == RED:
+        if not y.is_nil and y.color == RED:
           x.parent.color = BLACK
           y.color = BLACK
           x.parent.parent.color = RED
@@ -97,17 +93,17 @@ class RedBlackTree:
     self.root.color = BLACK
 
   def delete(self, z):
-    if z.left.is_nil() or z.right.is_nil():
+    if z.left.is_nil or z.right.is_nil:
       y = z
     else:
       y = self.successor(z)
-    if y.left.is_nil():
+    if y.left.is_nil:
       x = y.right
     else:
       x = y.left
     x.parent = y.parent
 
-    if y.parent.is_nil():
+    if y.parent.is_nil:
       self.root = x
     else:
       if y == y.parent.left:
@@ -125,30 +121,30 @@ class RedBlackTree:
 
   def minimum(self, x = None):
     if x is None: x = self.root
-    while not x.left.is_nil():
+    while not x.left.is_nil:
       x = x.left
     return x
 
   def maximum(self, x = None):
     if x is None: x = self.root
-    while not x.right.is_nil():
+    while not x.right.is_nil:
       x = x.right
     return x
 
   def successor(self, x):
-    if not x.right.is_nil():
+    if not x.right.is_nil:
       return self.minimum(x.right)
     y = x.parent
-    while not y.is_nil() and x == y.right:
+    while not y.is_nil and x == y.right:
       x = y
       y = y.parent
     return y
 
   def predecessor(self, x):
-    if not x.left.is_nil():
+    if not x.left.is_nil:
       return self.maximum(x.left)
     y = x.parent
-    while not y.is_nil() and x == y.left:
+    while not y.is_nil and x == y.left:
       x = y
       y = y.parent
     return y
@@ -156,20 +152,20 @@ class RedBlackTree:
   def inorder_walk(self, x = None):
     if x is None: x = self.root
     x = self.minimum()
-    while not x.is_nil():
+    while not x.is_nil:
       yield x.key
       x = self.successor(x)
 
   def reverse_inorder_walk(self, x = None):
     if x is None: x = self.root
     x = self.maximum()
-    while not x.is_nil():
+    while not x.is_nil:
       yield x.key
       x = self.predecessor(x)
 
   def search(self, key, x = None):
     if x is None: x = self.root
-    while not x.is_nil() and x.key != key:
+    while not x.is_nil and x.key != key:
       if key < x.key:
         x = x.left
       else:
@@ -177,25 +173,25 @@ class RedBlackTree:
     return x
 
   def is_empty(self):
-    return self.root.is_nil()
+    return self.root.is_nil
 
   def black_height(self, x = None):
     if x is None: x = self.root
     height = 0
-    while not x.is_nil():
+    while not x.is_nil:
       x = x.left
-      if x.is_nil() or x.is_black():
+      if x.is_nil or x.is_black():
         height += 1
     return height
 
   def __left_rotate(self, x):
-    if x.right.is_nil():
+    if x.right.is_nil:
       raise "x.right is nil!"
     y = x.right
     x.right = y.left
-    if not y.left.is_nil(): y.left.parent = x
+    if not y.left.is_nil: y.left.parent = x
     y.parent = x.parent
-    if x.parent.is_nil():
+    if x.parent.is_nil:
       self.root = y
     else:
       if x == x.parent.left:
@@ -206,13 +202,13 @@ class RedBlackTree:
     x.parent = y
 
   def __right_rotate(self, x):
-    if x.left.is_nil():
+    if x.left.is_nil:
       raise "x.left is nil!"
     y = x.left
     x.left = y.right
-    if not y.right.is_nil(): y.right.parent = x
+    if not y.right.is_nil: y.right.parent = x
     y.parent = x.parent
-    if x.parent.is_nil():
+    if x.parent.is_nil:
       self.root = y
     else:
       if x == x.parent.left:
@@ -225,7 +221,7 @@ class RedBlackTree:
   def __insert_helper(self, z):
     y = NilNode.instance()
     x = self.root
-    while not x.is_nil():
+    while not x.is_nil:
       y = x
       if z.key < x.key:
         x = x.left
@@ -233,7 +229,7 @@ class RedBlackTree:
         x = x.right
     
     z.parent = y
-    if y.is_nil():
+    if y.is_nil:
       self.root = z
     else:
       if z.key < y.key:
