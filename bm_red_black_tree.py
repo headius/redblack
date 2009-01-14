@@ -47,4 +47,3 @@ else:
 for i in xrange(0, n):
   print("%02f" % rbt_bm())
 
-rbt_bm()
