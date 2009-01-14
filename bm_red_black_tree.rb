@@ -12,7 +12,7 @@ def rbt_bm
 
   tree = RedBlackTree.new
 
-  n.times { tree.insert(RedBlackTree::Node.new(n)) }
+  n.times {|i| tree.add(i) }
   n.times { tree.delete(tree.root) }
 
   tree = RedBlackTree.new
