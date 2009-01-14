@@ -3,12 +3,11 @@ $:.unshift(File.expand_path(File.dirname(__FILE__) + "/../../lib"))
 require 'red_black_tree'
 
 def rbt_bm
-  n = 100000
+  n = 100_000
   a1 = []; n.times { a1 << rand(999_999) }
   a2 = []; n.times { a2 << rand(999_999) }
-  start = Time.now
 
-  n = 100_000
+  start = Time.now
 
   tree = RedBlackTree.new
 
