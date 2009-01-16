@@ -19,7 +19,6 @@ class Node:
     if self.right:
       s = s + "\n" + self.right.__str__(level + 1, indent)
     return s
-    #return "<Node @key=%s, @color=%s, @left=%s, @right=%s>" % (self.key, self.color, self.left, self.right)
 
   def is_red(self):
     return self.color == RED

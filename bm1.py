@@ -3,7 +3,6 @@ import time
 import random
 from red_black_tree import RedBlackTree
 import sys
-#import cProfile
 
 minor = sys.version_info[0]
 if minor >= 3:
