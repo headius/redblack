@@ -1,5 +1,3 @@
-$:.unshift(File.expand_path(File.dirname(__FILE__) + "/../../lib"))
-
 require 'red_black_tree'
 
 def rbt_bm
