@@ -1,3 +1,5 @@
+# all interpreters built from source
+
 $ ~/opt/bin/ruby1.8.6 bm1.rb 
 13.62575
 13.8044
