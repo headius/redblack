@@ -7,7 +7,7 @@ class Node:
       raise TypeError("Bad value for color parameter, expected True/False but given %s" % color)
     self.color = color
     self.key = key
-    self.left = self.right = self.parent = NilNode()
+    self.left = self.right = self.parent = NilNode.instance()
 
   def __str__(self, level = 0, indent = "   "):
     s = level * indent + str(self.key)
@@ -46,7 +46,7 @@ class NilNode(Node):
 
 class RedBlackTree:
   def __init__(self):
-    self.root = NilNode()
+    self.root = NilNode.instance()
     self.size = 0
     
   def __str__(self):
@@ -217,7 +217,7 @@ class RedBlackTree:
     x.parent = y
 
   def __insert_helper(self, z):
-    y = NilNode()
+    y = NilNode.instance()
     x = self.root
     while x:
       y = x
