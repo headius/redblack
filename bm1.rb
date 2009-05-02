@@ -26,5 +26,7 @@ end
 N = (ARGV[0] || 5).to_i
 
 N.times do
-  puts rbt_bm
+  puts rbt_bm.to_f
+  puts "GC.count = #{GC.count}" if GC.respond_to?(:count)
 end
+
