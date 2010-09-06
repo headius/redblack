@@ -1,61 +1,115 @@
-# all interpreters built from source
+# updated results (now run on mac os x so they are different than old one)
+# As you can see rubinius is the fastest one for this specific benchmark
+# (and I remember that it was about the same speed as jruby/mri about 6 months ago).
+# I believe this benchmark is not so specific to rubinius so I hope that rubinius
+# guys will keep up the good work. Seriously guys, I love you :).
 
-$ ~/opt/bin/ruby1.8.6 bm1.rb 
-13.62575
-13.8044
-14.027194
-14.17878
-13.962353
+# ruby.old is default ruby installation on mac os x 10.6
+$ ruby.old --version && ruby.old -I. bm1.rb 3
+ruby 1.8.7 (2009-06-12 patchlevel 174) [universal-darwin10.0]
+12.877407
+12.714056
+12.711498
+12.741095
+12.629786
 
-$ ~/opt/bin/ruby1.9.1 bm1.rb 
-5.010169475
-4.976067242
-4.939487911
-4.921858667
-4.937789061
+$ ruby --version && ruby -I. bm1.rb 5
+ruby 1.8.7 (2009-12-24 patchlevel 248) [i686-darwin10.0.0], MBARI 0x6770, Ruby Enterprise Edition 2010.01
+11.430688
+11.527716
+11.671069
+11.685053
+11.567304
 
-$ ~/opt/bin/ruby-trunk bm1.rb 
-5.093257033
-4.971180762
-4.974508786
-4.98184615
-5.047214462
+# we run it 20x because jvm needs more time to warm up (jit)
+$ jruby --version && jruby --server bm1.rb 20
+jruby 1.5.2 (ruby 1.8.7 patchlevel 249) (2010-08-20 1c5e29d) (Java HotSpot(TM) 64-Bit Server VM 1.6.0_20) [x86_64-java]
+6.251
+3.536
+3.64
+3.666
+3.463
+3.488
+3.452
+3.36
+3.488
+3.547
+3.462
+3.413
+3.464
+3.446
+3.416
+3.431
+3.429
+3.462
+3.45
+3.67
 
-$ ~/opt/src/jruby/bin/jruby --server bm1.rb 10
-7.462094
-3.775472
-3.934859
-5.207702
-5.054815
-6.533804
-5.376844
-3.498811
-3.564316
-3.649497
+# the same case but with --fast magic option!
+$ jruby --version && jruby --server --fast bm1.rb 20
+jruby 1.5.2 (ruby 1.8.7 patchlevel 249) (2010-08-20 1c5e29d) (Java HotSpot(TM) 64-Bit Server VM 1.6.0_20) [x86_64-java]
+5.832
+3.388
+2.995
+3.12
+2.993
+3.07
+3.077
+3.053
+2.971
+2.908
+2.984
+2.973
+3.005
+3.115
+2.985
+3.011
+2.875
+2.892
+3.007
+2.985
 
-$ ~/opt/src/jruby/bin/jruby --server --fast bm1.rb 10
-6.038324
-3.334145
-3.236145
-4.725578
-3.350219
-3.299141
-3.159565
-3.141266
-4.481423
-5.242784
+$ ruby-trunk --version && ruby-trunk -I. bm1.rb 5
+ruby 1.9.3dev (2010-09-06 trunk 29190) [x86_64-darwin10.4.0]
+5.355459
+GC.count = 7
+5.412945
+GC.count = 9
+5.439458
+GC.count = 12
+5.43296
+GC.count = 14
+5.383552
+GC.count = 16
 
-$ ~/opt/bin/python2.6 bm1.py 
-13.983702
-14.154356
-14.022100
-14.242300
-14.247187
+$ rbx --version && rbx -I. bm1.rb 20
+rubinius 1.0.1 (1.8.7 9191de6c 2010-06-03 JI) [x86_64-apple-darwin10.4.0]
+2.208848
+1.1334840000000002
+1.152181
+1.115856
+1.108351
+1.140871
+1.094401
+1.191103
+1.126919
+1.099199
+1.132336
+1.135996
+1.123894
+1.127398
+1.089978
+1.125649
+1.123299
+1.104524
+1.141342
+1.089031
 
-$ ~/opt/bin/python3.0 bm1.py 
-9.438678
-9.665116
-9.485505
-9.614230
-9.647216
+$ python3 --version && python3 bm1.py 5
+Python 3.1.2
+11.031023
+11.283902
+11.486423
+11.280034
+11.337633
 

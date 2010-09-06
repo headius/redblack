@@ -1,0 +1,9 @@
+Red Black Tree benchmark for ruby && python.
+Mainly to comparison different ruby implementations and python version to see how it's related to ruby (for that specific benchmark).
+
+How to run?
+some-ruby --some-options bm1.rb 100 # run bm1.rb with looping 100x times
+where:
+  some-ruby is you ruby (ruby, ruby1.9, rbx, jruby, maglev etc.)
+  --some-options - specific options for your ruby version (ie. --server fot jruby)
+

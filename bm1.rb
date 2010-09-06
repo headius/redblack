@@ -1,4 +1,5 @@
 require 'red_black_tree'
+require "benchmark"
 
 def rbt_bm
   n = 100_000
