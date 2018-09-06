@@ -280,7 +280,7 @@ class RedBlackTree:
           x.parent.color = Node.BLACK
           w.left.color = Node.BLACK
           self.__right_rotate(x.parent)
-          x = root
+          x = self.root
     x.color = Node.BLACK
     
   
